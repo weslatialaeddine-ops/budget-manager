@@ -68,4 +68,32 @@ void getTransactionByAccountId_shouldReturnlistOfAccountTransactions(){
         assertEquals( new BigDecimal(100),total);
 
     }
+
+    @Test 
+    void sortByDate_shouldReturnTransactionsSortedByDateAscending(){
+        Transaction firsTransaction = new Transaction("salary", TransactionCategory.SALARY, TransactionType.INCOME, LocalDate.of(2025, 12, 24), new BigDecimal(1500), "acount1");
+        Transaction secondTransaction = new Transaction("food", TransactionCategory.FOOD, TransactionType.EXPENSE, LocalDate.of(2024, 2, 13), new BigDecimal(300), "acount1");
+        Transaction thirdTransaction = new Transaction("health", TransactionCategory.HEALTH, TransactionType.EXPENSE, LocalDate.of(2026, 8, 1), new BigDecimal(1500), "acount1");
+
+        this.transactionService.addTransaction(firsTransaction);
+        this.transactionService.addTransaction(secondTransaction);
+        this.transactionService.addTransaction(thirdTransaction);
+
+        List<Transaction> lisTransactions = this.transactionService.sortByDate();
+        assertEquals(secondTransaction, lisTransactions.get(0));
+
+    }
+     @Test
+    void sortByAmount_shouldReturnTransactionsSortedByAmountDescending(){
+          Transaction firsTransaction = new Transaction("salary", TransactionCategory.SALARY, TransactionType.INCOME, LocalDate.of(2025, 12, 24), new BigDecimal(1600), "acount1");
+        Transaction secondTransaction = new Transaction("food", TransactionCategory.FOOD, TransactionType.EXPENSE, LocalDate.of(2024, 2, 13), new BigDecimal(300), "acount1");
+        Transaction thirdTransaction = new Transaction("health", TransactionCategory.HEALTH, TransactionType.EXPENSE, LocalDate.of(2026, 8, 1), new BigDecimal(1500), "acount1");
+
+        this.transactionService.addTransaction(firsTransaction);
+        this.transactionService.addTransaction(secondTransaction);
+        this.transactionService.addTransaction(thirdTransaction);
+
+        List<Transaction> lisTransactions = this.transactionService.sortByAmount();
+        assertEquals(firsTransaction, lisTransactions.get(0));
+    }
 }

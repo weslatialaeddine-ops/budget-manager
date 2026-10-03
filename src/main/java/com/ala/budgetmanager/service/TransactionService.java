@@ -54,4 +54,18 @@ public class TransactionService {
         }
         return sum;
     }
+
+    public List<Transaction> sortByDate() {
+    List<Transaction> copie = new ArrayList<>(this.listOfTransactions);
+    Comparator<Transaction> parDate = (t1, t2) -> t1.getDateOfTransaction().compareTo(t2.getDateOfTransaction());
+    copie.sort(parDate);
+    return copie;
+}
+
+    public List<Transaction> sortByAmount(){
+        List<Transaction> copie = new ArrayList<>(this.listOfTransactions);
+        Comparator<Transaction> perAmount = (t1,t2)->t1.getSignedAmount().compareTo(t2.getSignedAmount());
+        copie.sort(perAmount.reversed());
+        return copie;
+    }
 }
