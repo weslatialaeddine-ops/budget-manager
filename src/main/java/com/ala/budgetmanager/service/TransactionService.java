@@ -43,12 +43,11 @@ public class TransactionService {
 
     public BigDecimal totalTransactionsPerAccount(String accountId){
 
-        List<Transaction> accountTransactions = this.getTransactionsByAccountId(accountId);
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Transaction tr: accountTransactions){
-           sum = sum.add(tr.getSignedAmount());
-        }
-        return sum;
+         List<Transaction> accountTransactions = this.getTransactionsByAccountId(accountId);
+      
+        return accountTransactions.stream()
+        .map(Transaction::getSignedAmount)
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public List<Transaction> sortByDate() {
